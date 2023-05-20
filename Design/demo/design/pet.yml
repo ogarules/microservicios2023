@@ -1,0 +1,143 @@
+swagger: "2.0"
+info:
+  title: "Pet store API"
+  version: "1.0.1"
+  contact:
+    email: "oscar.garcia@mariachi.io"
+    name: "OGA"
+    url: "https://spring.io"
+  description: "Api for managing a pet store"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/apache2.0.html"
+  termsOfService: "http://swagger.io"
+basePath: "/api"
+tags:
+  - name: "Pet api"
+    description: "Pet CRUD"
+    externalDocs:
+      url: "http://spring.io"
+      description: "Find out more"
+schemes:
+  - http
+  - https
+paths:
+  /pets:
+    get:
+      tags:
+        - "Pet api"
+      description: "Get all avaible pets in store"
+      operationId: "getAllPets"
+      produces:
+        - "application/json"
+      responses:
+        200:
+          description: Success
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Pet"
+        404:
+          description: "No pets found in store"
+    post:
+      tags:
+        - "Pet api"
+      parameters:
+        - name: pet
+          in: body
+          schema:
+            $ref: "#/definitions/Pet"
+          required: true
+      operationId: addPet
+      summary: "Api for adding pets to the store"
+      produces:
+        - "application/json"
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: "#/definitions/Pet"
+  /pets/{id}:
+    get:
+      tags:
+        - "Pet api"
+      description: "Get pet by ID"
+      operationId: "getPet"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: path
+          type: integer
+          required: true
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: "#/definitions/Pet"
+        404:
+          description: Pet not found
+    put:
+      tags:
+        - "Pet api"
+      description: "Update pet information"
+      operationId: "updatePet"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: path
+          type: integer
+          required: true
+        - name: pet
+          in: body
+          schema:
+            $ref: "#/definitions/Pet"
+          required: true
+      responses:
+        200: 
+          description: Success
+          schema:
+            $ref: "#/definitions/Pet"
+        404:
+          description: Pet not found
+    delete:
+      tags:
+        - "Pet api"
+      description: "Delete pet from store"
+      operationId: "deletePet"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: path
+          type: integer
+          required: true
+      responses:
+        200:
+          description: Success
+        404:
+          description: Pet not found
+definitions:
+  Pet:
+    required:
+      - "name"
+      - "id"
+    properties: 
+      id:
+        type: integer
+        format: "int64"
+        example: "1234"
+        description: "PEt's internal identifier"
+      name: 
+        type: string
+        example: "Fido"
+        description: "Pet's name"
+      tag:
+        type: string
+        example: "ABS-123"
+        description: "Electronic tag"
+      species:
+        type: string
+        example: "dog"
+        description: "Pet species"
