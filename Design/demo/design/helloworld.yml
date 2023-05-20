@@ -12,6 +12,7 @@ info:
     url: "http://www.apache.orglicenses/apache2.0.html"
   termsOfService: "https://spring.io"
 basePath: "/api"
+host: localhost:8080
 tags:
   - name: "Hello group"
     description: "Todo acerca del hola mundo"
