@@ -1,0 +1,97 @@
+swagger: "2.0"
+info:
+  title: "Hello world API"
+  version: "1.0.0"
+  contact:
+    email: "oscar.garcia@mariachi.io"
+    name: "OGA"
+    url: "https://spring.io"
+  description: "API para saludar hola mundo"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.orglicenses/apache2.0.html"
+  termsOfService: "https://spring.io"
+basePath: "/api"
+tags:
+  - name: "Hello group"
+    description: "Todo acerca del hola mundo"
+    externalDocs:
+      url: "http://spring.io"
+      description: "Docuekntacion centralizada del hola mundo"
+schemes:
+  - http
+  - https
+paths:
+  /greeting:
+    get:
+      tags:
+        - "Hello group"
+      description: "Obtiene todos los hello world"
+      operationId: "getAllGreetings"
+      produces:
+        - "application/json"
+      responses:
+        200:
+          description: Success
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Greeting"
+        404:
+          description: "No se encontro el hola mundo"
+    post:
+      parameters:
+        - name: greeting
+          in: body
+          schema:
+            $ref: "#/definitions/Greeting"
+          required: true
+      operationId: addGreeting
+      summary: "API para agregar hola mundos"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: "#/definitions/Greeting"
+  /greeting/{message}:
+    get:
+      tags:
+        - "Hello group"
+      description: "Obtener un hola mundo"
+      operationId: "getGreeting"
+      produces:
+        - "application/json"
+      parameters:
+        - name: message
+          in: path
+          type: string
+          required: true  
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: "#/definitions/Greeting"
+        404:
+          description: "Hola mundo no encontrado"
+definitions:
+  Greeting:
+    required:
+      - "id"
+      - "message"
+    properties: 
+      id:
+        type: integer
+        format: "int64"
+        example: "1234"
+        description: "Id interno del hola mundo"
+      message:
+        type: string
+        example: "Hello world!!!!"
+        description: "Mensaje a enviar al mundo"
+      location:
+        type: string
+        example: "CDMX"
+        description: "De donde salio el hola mundo"
+      
