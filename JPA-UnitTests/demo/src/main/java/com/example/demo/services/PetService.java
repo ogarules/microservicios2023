@@ -1,10 +1,12 @@
 package com.example.demo.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.models.Pet;
 import com.example.demo.repositories.PetRepository;
+import com.querydsl.core.types.Predicate;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,10 +24,10 @@ public class PetService implements IPetService {
     }
 
     @Override
-    public Iterable<Pet> getAllPets() {
+    public Iterable<Pet> getAllPets(Predicate predicate, Pageable page) {
         log.info("Obteneiendo todas las mascotas....");
 
-        return this.repository.findAll();
+        return this.repository.findAll(predicate, page);
     }
 
     @Override

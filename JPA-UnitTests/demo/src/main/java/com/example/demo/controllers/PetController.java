@@ -4,6 +4,11 @@ import javax.validation.constraints.Min;
 import javax.validation.groups.Default;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.querydsl.binding.QuerydslPredicate;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.SortDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -22,6 +27,7 @@ import com.example.demo.models.Pet;
 import com.example.demo.services.IPetService;
 import com.example.demo.validations.OnAdd;
 import com.example.demo.validations.OnUpdate;
+import com.querydsl.core.types.Predicate;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -44,9 +50,12 @@ public class PetController {
     }
 
     @GetMapping
-    public Iterable<Pet> getAllPets() {
+    public Iterable<Pet> getAllPets(@QuerydslPredicate(root =Pet.class) Predicate predicate,
+                                    @SortDefault(sort = "name", direction = Direction.ASC)
+                                    @PageableDefault(size=5,page=0)
+                                    Pageable page) {
         log.info("Controller requesting all pets");
-        return this.service.getAllPets();
+        return this.service.getAllPets(predicate, page);
     }
     
     // @PostMapping
