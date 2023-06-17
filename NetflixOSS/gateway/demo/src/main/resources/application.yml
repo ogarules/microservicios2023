@@ -1,0 +1,25 @@
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8089/eureka/
+
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      routes:
+      - id: firstservice
+        uri: lb://first-service
+        predicates:
+        - Path=/api/service1/**
+        filters:
+        - RewritePath=/api/service1/(?<segment>.*), /$\{segment}
+      - id: secondservice
+        uri: lb://second-service
+        predicates:
+        - Path=/api/service2/**
+        filters:
+        - name: CircuitBreaker
+        - RewritePath=/api/service2/(?<segment>.*), /$\{segment}
