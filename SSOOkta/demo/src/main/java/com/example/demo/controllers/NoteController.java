@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,13 +47,18 @@ public class NoteController {
     }
     
     @PutMapping(value="/{id}")
-    public Note addNote(@PathVariable Integer id, @RequestBody Note entity) {
-        
+    public Note addNote(@PathVariable Integer id, @RequestBody Note entity, Principal user) {
+        entity.setUserId(user.getName());
         return repository.save(entity);
     }
 
     @GetMapping("/user")
     public List<Note> getUserNotes(Principal user){
         return repository.findByUserId(user.getName());
+    } 
+
+    @DeleteMapping(value="/{id}")
+    public void delete(@PathVariable Integer id) {
+        repository.deleteById(id);
     }
 }
