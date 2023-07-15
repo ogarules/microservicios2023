@@ -1,0 +1,27 @@
+# See more at https://istio.io/docs/reference/config/networking/gateway/
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: humanresources-gateway
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - '*/my.humanresources.com'
+    - '*/humanresources.com'
+  # - port:
+  #     number: 443
+  #     name: https
+  #     protocol: HTTPS
+  #   hosts:
+  #   - '*/*.humanresources.com'
+  #   - '*/humanresources.com'
+  #   tls:
+  #     mode: SIMPLE
+  #     serverCertificate: /etc/istio/ingressgateway-certs/humanresources-io-crt.pem
+  #     privateKey: /etc/istio/ingressgateway-certs/humanresources-io-key.pem
