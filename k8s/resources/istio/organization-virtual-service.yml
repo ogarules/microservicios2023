@@ -16,8 +16,16 @@ spec:
     route:
     - destination:
         host: organization
+        subset: v1
         port: 
           number: 8081
+      weight: 50
+    - destination:
+        host: organization
+        subset: v2
+        port: 
+          number: 808
+      weight: 50
     rewrite:
       uri: /
     corsPolicy:
