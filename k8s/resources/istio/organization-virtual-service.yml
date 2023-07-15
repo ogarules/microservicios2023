@@ -24,7 +24,7 @@ spec:
         host: organization
         subset: v2
         port: 
-          number: 808
+          number: 8081
       weight: 50
     rewrite:
       uri: /
