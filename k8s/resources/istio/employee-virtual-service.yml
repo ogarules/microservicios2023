@@ -8,7 +8,7 @@ spec:
   - 'humanresources.com'
   - 'my.humanresources.com'
   gateways:
-  - "humanresources-gateway"
+  - humanresources-gateway
   http:
   - match:
     - uri:

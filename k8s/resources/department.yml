@@ -6,11 +6,13 @@ spec:
   selector:
     matchLabels:
       app: department
+      version: v1
       type: backend
   template:
     metadata:
       labels:
         app: department
+        version: v1
         type: backend
     spec:
       containers:
